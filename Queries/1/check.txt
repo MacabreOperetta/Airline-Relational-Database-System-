@@ -1,0 +1,10 @@
+ALTER TABLE FLIGHT_LEG
+ADD CONSTRAINT LegNumberCheck CHECK (Leg_number>0)
+
+
+ALTER TABLE FLIGHT_LEG
+ADD CONSTRAINT AirportCheck CHECK (Departure_airport_code!=Arrival_airport_code)
+
+
+ALTER TABLE FARE
+ADD CONSTRAINT FareCheck CHECK (Amount>0)

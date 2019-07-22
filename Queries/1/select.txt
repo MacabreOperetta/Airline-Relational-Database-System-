@@ -1,0 +1,67 @@
+SELECT FARE.Flight_number,FLIGHT.Airline,AVG(Amount) AS AVG_Amount
+FROM FARE
+INNER JOIN FLIGHT ON FARE.Flight_number=FLIGHT.Flight_number
+GROUP BY FARE.Flight_number,FLIGHT.Airline
+
+
+SELECT Airport_code,Flight_number
+FROM AIRPORT,FLIGHT_LEG
+WHERE Airport_code=Departure_airport_code
+ORDER BY Airport_code
+
+
+SELECT Airplane_type_name
+FROM AIRPORT,CAN_LAND
+WHERE AIRPORT.Name='Hong Kong International Airport' AND AIRPORT.Airport_code=CAN_LAND.Airport_code
+
+
+SELECT A.Name,COUNT(C.Airplane_type_name) AS Number_of_planes
+FROM CAN_LAND AS C
+INNER JOIN AIRPORT as A ON C.Airport_code=A.Airport_code
+GROUP BY A.Name
+
+
+SELECT Customer_name,Customer_phone
+FROM FLIGHT, LEG_INSTANCE, SEAT_RESERVATION
+WHERE FLIGHT.Airline='Korean Air' AND LEG_INSTANCE.Arrival_time='17:52' AND FLIGHT.Flight_number=LEG_INSTANCE.Flight_number AND LEG_INSTANCE.Flight_number=SEAT_RESERVATION.Flight_number
+
+
+SELECT DISTINCT Name,City
+FROM AIRPORT,AIRPLANE_TYPE,CAN_LAND
+WHERE AIRPLANE_TYPE.Company='Boeing' AND AIRPLANE_TYPE.Airplane_type_name=CAN_LAND.Airplane_type_name AND CAN_LAND.Airport_code=AIRPORT.Airport_code
+
+
+SELECT DISTINCT State
+FROM FARE,LEG_INSTANCE,AIRPORT
+WHERE FARE.Flight_number=LEG_INSTANCE.Flight_number 
+AND LEG_INSTANCE.Departure_airport_code=AIRPORT.Airport_code
+AND FARE.Fare_code='J'
+
+
+SELECT Airline,Date,Fare_code,Restriction_type
+FROM FLIGHT,LEG_INSTANCE,FARE,RESTRICTIONS
+WHERE Leg_Number>1 AND FLIGHT.Flight_number=LEG_INSTANCE.Flight_number AND LEG_INSTANCE.Flight_number=FARE.Flight_number AND FARE.Restriction_id=RESTRICTIONS.Restriction_id
+
+
+SELECT LEG_INSTANCE.Flight_number,AIRPORT.Name,Departure_time,Amount
+FROM FARE,LEG_INSTANCE,AIRPORT
+WHERE AIRPORT.State='Turkey' AND Leg_number=1 AND LEG_INSTANCE.Flight_number=FARE.Flight_number 
+AND LEG_INSTANCE.Departure_airport_code=AIRPORT.Airport_code AND Fare_code='F'
+
+
+
+SELECT AIRPORT.Name,AIRPLANE_TYPE.Company, AIRPLANE.Airplane_id,AIRPLANE.Total_number_of_seats
+FROM AIRPORT,LEG_INSTANCE,AIRPLANE_TYPE,AIRPLANE
+WHERE AIRPORT.City='Ýstanbul' AND AIRPORT.Airport_code=LEG_INSTANCE.Departure_airport_code AND LEG_INSTANCE.Airplane_id=AIRPLANE.Airplane_id AND AIRPLANE.Airplane_type=AIRPLANE_TYPE.Airplane_type_name
+
+
+SELECT FLIGHT.Airline,FLIGHT_LEG.Departure_airport_code,FLIGHT_LEG.Scheduled_departure_time,Amount,Fare_code
+FROM FLIGHT,SEAT_RESERVATION,FARE,FLIGHT_LEG
+WHERE SEAT_RESERVATION.Customer_name='Tolga Saltan'AND SEAT_RESERVATION.Flight_number=FARE.Flight_number AND FARE.Flight_number=FLIGHT_LEG.Flight_number AND FLIGHT_LEG.Flight_number=FLIGHT.Flight_number
+
+
+SELECT FLIGHT_LEG.Flight_number,AIRPORT.State,FARE.Amount,FLIGHT.Airline
+FROM FLIGHT,FLIGHT_LEG,AIRPORT,FARE
+WHERE Weekdays LIKE 'su%' AND FLIGHT.Flight_number=FLIGHT_LEG.Flight_number
+AND Leg_number>1 AND AIRPORT.Airport_code=FLIGHT_LEG.Arrival_airport_code AND Fare_code='F' 
+AND FARE.Flight_number=FLIGHT_LEG.Flight_number

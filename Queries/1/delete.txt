@@ -1,0 +1,11 @@
+DELETE 
+FROM FARE
+WHERE Fare_code='Y' AND Flight_number='KE11'
+
+DELETE 
+FROM SEAT_RESERVATION
+WHERE Customer_name='Amanda Murphy'
+
+DELETE 
+FROM LEG_INSTANCE
+WHERE Flight_number='KE11'

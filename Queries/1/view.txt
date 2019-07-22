@@ -1,0 +1,21 @@
+CREATE VIEW view1
+AS
+SELECT Name Airline,L.Flight_number,Customer_name,Customer_phone
+FROM AIRPORT AS A,LEG_INSTANCE AS L,SEAT_RESERVATION AS S
+WHERE A.Airport_code=L.Departure_airport_code AND L.Flight_number=S.Flight_number AND L.Leg_number=S.Leg_number AND L.Date=S.Date
+
+
+CREATE VIEW view2
+AS
+SELECT A.Airplane_type_name,A.Max_seats,L.Number_of_available_seats,Departure_airport_code,Departure_time,Arrival_airport_code,Arrival_time
+FROM LEG_INSTANCE AS L,AIRPLANE_TYPE AS A,CAN_LAND AS C
+WHERE L.Number_of_available_seats<50 AND L.Departure_airport_code=C.Airport_code AND C.Airplane_type_name=A.Airplane_type_name
+
+
+CREATE VIEW view3
+AS
+SELECT Customer_name,Customer_phone,Seat_number,Airline
+FROM SEAT_RESERVATION AS S,FLIGHT AS f,FLIGHT_LEG FL
+WHERE F.Flight_number=FL.Flight_number AND FL.Flight_number=S.Flight_number AND FL.Leg_number=S.Leg_number AND Customer_name='Erdem Kuþ'
+
+

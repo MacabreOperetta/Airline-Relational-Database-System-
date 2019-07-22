@@ -1,0 +1,15 @@
+SELECT *
+FROM FLIGHT_LEG
+WHERE Mile>5000
+
+SELECT *
+FROM CUSTOMER
+WHERE Passport_number IN (SELECT Passport_number
+						  FROM FFC
+						  WHERE Mile>2000)
+
+SELECT *
+FROM CUSTOMER AS C
+WHERE NOT EXISTS (SELECT *
+				  FROM FFC AS F
+				  WHERE F.Passport_number=C.Passport_number)

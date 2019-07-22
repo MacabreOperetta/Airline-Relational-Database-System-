@@ -1,0 +1,34 @@
+SELECT *
+FROM SEAT_RESERVATION AS S
+WHERE EXISTS (SELECT *
+			  FROM FARE AS F
+		      WHERE S.Flight_number=F.Flight_number AND F.Fare_code='Y')
+
+
+
+SELECT Name
+FROM AIRPORT AS A
+WHERE EXISTS (SELECT *
+			  FROM FLIGHT_LEG AS F
+		      WHERE A.Airport_code=F.Departure_airport_code AND NOT EXISTS (SELECT *
+										                                    FROM FLIGHT AS FL
+										                                    WHERE F.Flight_number=FL.Flight_number AND FL.Airline='Turkish Airlines'))
+
+
+
+
+SELECT *
+FROM FLIGHT AS F
+WHERE NOT EXISTS ( SELECT *
+						FROM FARE
+						WHERE F.Flight_number=FARE.Flight_number AND FARE.Fare_code!='Y')
+
+
+SELECT *
+FROM SEAT_RESERVATION AS S
+WHERE EXISTS (SELECT *
+			  FROM LEG_INSTANCE AS L
+			  WHERE S.Flight_number = L.Flight_number AND
+			  EXISTS (SELECT *
+					  FROM AIRPORT AS A
+					  WHERE A.Airport_code = L.Departure_airport_code AND A.State='Turkey'))

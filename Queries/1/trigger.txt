@@ -1,0 +1,135 @@
+CREATE TRIGGER ActionReservation
+ON SEAT_RESERVATION
+AFTER INSERT,DELETE
+AS
+DECLARE @Flight_number nchar(7), @Date date
+IF EXISTS (SELECT * FROM deleted)
+BEGIN
+SELECT @Flight_number=Flight_number, @Date=Date FROM deleted
+UPDATE LEG_INSTANCE SET Number_of_available_seats=Number_of_available_seats+1
+WHERE Flight_number=@Flight_number AND Date=@Date
+END
+IF EXISTS (SELECT * FROM inserted)
+BEGIN
+SELECT @Flight_number=Flight_number, @Date=Date FROM inserted
+UPDATE LEG_INSTANCE SET Number_of_available_seats=Number_of_available_seats-1
+WHERE Flight_number=@Flight_number AND Date=@Date
+END
+
+
+CREATE TRIGGER DeleteFlight
+ON LEG_INSTANCE
+AFTER DELETE
+AS
+BEGIN
+INSERT INTO CANCELED_FLIGHTS
+SELECT Flight_number,Leg_number,Date,Departure_airport_code,Arrival_airport_code FROM deleted
+END
+
+
+
+CREATE TRIGGER UpdateArrivalCode
+ON FLIGHT_LEG
+AFTER UPDATE
+AS
+BEGIN
+DECLARE @Flight_number nchar(7),@Arrival_airport_code char(3)
+SELECT @Flight_number=Flight_number, @Arrival_airport_code=Arrival_airport_code FROM inserted
+UPDATE LEG_INSTANCE SET Arrival_airport_code=@Arrival_airport_code
+WHERE Flight_number=@Flight_number 
+END
+
+
+
+CREATE TRIGGER ChangeTotalSeats
+ON AIRPLANE 
+AFTER UPDATE 
+AS
+BEGIN
+DECLARE @Total_number_of_seats int,@Airplane_id varchar(8)
+SELECT @Total_number_of_seats=Total_number_of_seats,@Airplane_id=Airplane_id from deleted
+UPDATE LEG_INSTANCE SET Number_of_available_seats=Number_of_available_seats+(Total_number_of_seats-@Total_number_of_seats)
+FROM LEG_INSTANCE,AIRPLANE
+WHERE LEG_INSTANCE.Airplane_id=@Airplane_id AND LEG_INSTANCE.Airplane_id=AIRPLANE.Airplane_id
+END
+
+
+CREATE TRIGGER KOLTUKVER
+ON SEAT_RESERVATION
+AFTER INSERT
+AS
+BEGIN
+DECLARE @Flight_number nchar(7), @Seat_number varchar(3)
+SELECT @Flight_number=Flight_number,@Seat_number=Seat_number from inserted
+IF EXISTS (SELECT * FROM inserted WHERE Flight_number=@Flight_number AND  Seat_number=@Seat_number)
+BEGIN
+RAISERROR ('BU KOLTUK NUMARASINA AIT YOLCU BULUNMAKTADIR',0,0)
+ROLLBACK TRANSACTION
+END
+END
+
+CREATE TRIGGER FARECODE
+ON FARE
+AFTER INSERT
+AS
+BEGIN
+DECLARE @flightnumber nchar(7), @farecode char(1)
+SELECT @flightnumber=Flight_number,@farecode=Fare_code from inserted
+IF EXISTS(SELECT * FROM inserted WHERE Flight_number=@flightnumber AND @farecode!='Y')
+BEGIN
+RAISERROR ('BU UÇAK SADECE EKONOMÝ SINIFI BÝLET KABUL EDEBÝLÝR',0,0)
+ROLLBACK TRANSACTION
+END
+END
+
+
+
+CREATE TRIGGER AIRPORTONCHANGE
+ON AIRPORT
+AFTER UPDATE,DELETE
+AS
+DECLARE @airportnumber char(3),@airportnumber2 char(3);
+IF EXISTS( SELECT * FROM deleted)
+BEGIN
+	SELECT @airportnumber=Airport_code from deleted
+	BEGIN
+	DELETE 
+	FROM LEG_INSTANCE
+	WHERE @airportnumber=LEG_INSTANCE.Departure_airport_code OR  @airportnumber=LEG_INSTANCE.Arrival_airport_code
+	END
+
+	BEGIN
+	DELETE 
+	FROM FLIGHT_LEG
+	WHERE @airportnumber=FLIGHT_LEG.Departure_airport_code OR @airportnumber=FLIGHT_LEG.Arrival_airport_code
+	END
+END
+IF EXISTS(SELECT * FROM inserted)
+BEGIN
+	SELECT @airportnumber=Airport_code from deleted
+	SELECT @airportnumber2=Airport_code from inserted
+	BEGIN
+	UPDATE FLIGHT_LEG
+	SET FLIGHT_LEG.Departure_airport_code=@airportnumber2
+	WHERE FLIGHT_LEG.Departure_airport_code=@airportnumber
+	END
+	BEGIN
+	UPDATE FLIGHT_LEG
+	SET FLIGHT_LEG.Arrival_airport_code=@airportnumber2
+	WHERE FLIGHT_LEG.Arrival_airport_code=@airportnumber
+	END
+
+	BEGIN
+	UPDATE LEG_INSTANCE
+	SET LEG_INSTANCE.Departure_airport_code=@airportnumber2
+	WHERE LEG_INSTANCE.Departure_airport_code=@airportnumber
+	END
+
+	BEGIN
+	UPDATE LEG_INSTANCE
+	SET LEG_INSTANCE.Arrival_airport_code=@airportnumber2
+	WHERE LEG_INSTANCE.Arrival_airport_code=@airportnumber
+	END
+END
+
+

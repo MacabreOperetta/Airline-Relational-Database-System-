@@ -1,0 +1,12 @@
+UPDATE FLIGHT_LEG
+SET Leg_number='3'
+WHERE Leg_number='2'
+
+UPDATE FARE
+SET Fare_code='J'
+WHERE Flight_number='AF5089'
+
+
+UPDATE AIRPORT
+SET Name='Sabiha Airport'
+WHERE Airport_code='SAW'

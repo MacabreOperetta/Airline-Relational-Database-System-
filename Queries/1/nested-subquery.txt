@@ -1,0 +1,28 @@
+SELECT *
+FROM FARE
+WHERE Amount>ALL (SELECT Amount FROM FARE WHERE Flight_number='KL887')
+
+
+SELECT *
+FROM AIRPLANE
+WHERE Total_number_of_seats=(SELECT MAX(Total_number_of_seats) FROM AIRPLANE)
+
+
+SELECT Airline
+FROM FLIGHT
+WHERE Flight_number IN (SELECT Flight_number
+						FROM LEG_INSTANCE
+						WHERE Leg_number>1 AND Departure_airport_code IN (SELECT Airport_code
+																		 FROM AIRPORT
+																		 WHERE State='France'))
+
+
+SELECT DISTINCT(State)
+FROM AIRPORT
+WHERE Airport_code IN (SELECT Departure_airport_code
+					   FROM LEG_INSTANCE
+				       WHERE Flight_number IN (SELECT Flight_number
+											   FROM SEAT_RESERVATION
+											   WHERE Customer_name='Erdem Kuþ'))
+
+

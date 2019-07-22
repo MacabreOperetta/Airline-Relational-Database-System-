@@ -1,0 +1,13 @@
+SELECT *
+FROM AIRPORT AS A LEFT OUTER JOIN FLIGHT_LEG AS F
+ON A.Airport_code=F.Departure_airport_code
+
+
+SELECT F.Flight_number,F.Departure_airport_code,F.Scheduled_departure_time,C.Airplane_type_name,C.Airport_code
+FROM FLIGHT_LEG AS F FULL OUTER JOIN CAN_LAND AS C
+ON F.Departure_airport_code=C.Airport_code
+
+
+SELECT *
+FROM CAN_LAND AS C RIGHT OUTER JOIN AIRPORT AS A
+ON A.Airport_code=C.Airport_code

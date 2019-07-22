@@ -1,0 +1,260 @@
+INSERT INTO AIRLINE_COMPANY
+VALUES
+	('Qatar Airways'),
+	('Korean Air'),
+	('Turkish Airlines'),
+	('Pegasus Airlines'),
+	('SunExpress'),
+	('KLM Royal Dutch Airlines'),
+	('Air France')
+INSERT INTO AIRPLANE_COMPANY
+VALUES
+	('Boeing'),
+	('Airbus'),
+	('Embraer'),
+	('Pegasus Airlines'),
+	('SunExpress'),
+	('KLM Royal Dutch Airlines'),
+	('Air France')
+
+INSERT INTO AIRPORT
+VALUES
+	 ('SAW','Sabiha Gökçen International Airport','Ýstanbul','Turkey'),
+	 ('DOH','Hamad International Airport','Doha','Qatar'),
+	 ('IST','Atatürk International Airport','Ýstanbul','Turkey'),
+	 ('ADB','Adnan Menderes International Airport','Ýzmir','Turkey'),
+	 ('ESB','Esenboða International Airport','Ankara','Turkey'),
+	 ('AYT','Antalya International Airport','Antalya','Turkey'),
+	 ('HKG','Hong Kong International Airport','Hong Kong','China'),
+	 ('ATL','Hartsfield–Jackson Atlanta International Airport','Georgia','United States'),
+	 ('HND','Tokyo International Airport','Tokyo','Japan'),
+	 ('CDG','Charles de Gaulle Airport','Paris','France'),
+	 ('HEL','Helsinki Vantaa Airport','Helsinki','Finland'),
+	 ('AMS','Amsterdam Schiphol Airport','Amsterdam','Netherlands'),
+	 ('MAD','Madrid Barajas Airport','Madrid','Spain'),
+	 ('ICN','Seoul Incheon International Airport','Incheon','South Korea'),
+	 ('KUL','Kuala Lumpur International Airport','Selangor','Malaysia'),
+	 ('LAX','Los Angeles International Airport','California','United States'),
+	 ('AAA','Anaa',NULL,'French Polynesia'),
+	 ('AFR','Afore Airstrip',NULL,'Papua New Guinea')
+
+
+INSERT INTO FLIGHT
+VALUES 
+	 ('QR845','Qatar Airways','Su,Sa'),
+	 ('QR241','Qatar Airways','Su,Sa'),
+	 ('KE11','Korean Air','Su,Mo,Fr,Sa'),
+	 ('KE914','Korean Air','Th,Sa'),
+	 ('TK7007','Turkish Airlines','Su,Th,Fr,Sa'),
+	 ('PC3160','Pegasus Airlines','Su,Th,Fr,Sa'),
+	 ('TK7004','Turkish Airlines','Su,Th,Fr,Sa'),
+	 ('XQ9292','SunExpress','Su,Th,Fr,Sa'),
+	 ('TK2152','Turkish Airlines','Su,Th,Fr,Sa'),
+	 ('TK70','Turkish Airlines','Su,Th,Fr,Sa'),
+	 ('KL2758','KLM Royal Dutch Airlines','Su,Th,Fr,Sa'),
+	 ('KL887','KLM Royal Dutch Airlines','Su,Th,Fr,Sa'),
+	 ('AF5089','Air France','Su,Th,Fr,Sa'),
+	 ('TK1821','Turkish Airlines','Su,Th,Fr,Sa'),
+	 ('AF8984','Air France','Su,Th,Fr,Sa'),
+	 ('KL2009','KLM Royal Dutch Airlines','Su,Th,Fr,Sa'),
+	 ('KL1166','KLM Royal Dutch Airlines','Su,Th,Fr,Sa')
+
+INSERT INTO FLIGHT_LEG
+VALUES 
+	 ('KE914','1','MAD','20:25','ICN','17:00','Korean Air','6210'),
+	 ('KE11','2','ICN','20:00','LAX','14:00','Korean Air','5956'),
+	 ('QR845','1','KUL','09:10','DOH','12:25','Qatar Airways','3661'),
+	 ('QR241','2','DOH','14:20','SAW','19:05','Qatar Airways','1668'),
+	 ('TK7007','1','ADB','13:55','ESB','15:10','Turkish Airlines','217'),
+	 ('PC3160','1','ADB','06:00','ESB','07:10','Pegasus Airlines','217'),
+	 ('TK7004','1','ESB','08:15','ADB','08:30','Turkish Airlines','217'),
+	 ('XQ9292','1','ADB','20:30','AYT','21:35','SunExpress','299'),
+	 ('TK2152','1','IST','14:00','ESB','15:05','Turkish Airlines','208'),
+	 ('AF5089','1','IST','11:50','CDG','13:40','Air France','1401'),
+	 ('AF8984','2','CDG','15:20','ATL','19:38','Air France','4373'),
+	 ('TK1821','1','IST','08:00','CDG','09:45','Turkish Airlines','1401'),
+	 ('KL2009','1','AMS','13:50','CDG','15:10','KLM Royal Dutch Airlines','267'),
+	 ('KL1166','1','HEL','10:45','AMS','12:15','KLM Royal Dutch Airlines','933'),
+	 ('KL2758','1','IST','11:35','AMS','13:15','KLM Royal Dutch Airlines','1375'),
+	 ('KL887','2','AMS','17:40','HKG','11:50','KLM Royal Dutch Airlines','5767'),
+	 ('TK70','1','IST','02:00','HKG','17:00','Turkish Airlines','1982'),
+	 ('KL887','1','AMS','17:40','HKG','11:50','KLM Royal Dutch Airlines','5767'),
+	 ('AF8984','1','CDG','15:20','ATL','19:38','Air France','4373')
+
+INSERT INTO RESTRICTIONS
+VALUES
+	 ('1','Unrestricted'),
+	 ('2','Restricted'),
+	 ('3','Capacity controlled'),
+	 ('4','Internet-only')
+
+
+INSERT INTO FARE
+VALUES
+	 ('KE914','Y','3058','2','Korean Air'),
+	 ('KE11','Y','4256','2','Korean Air'),
+	 ('QR845','Y','2968','2','Qatar Airways'),
+	 ('QR241','F','3238','1','Qatar Airways'),
+	 ('QR241','J','3058','4','Qatar Airways'),
+	 ('QR241','Y','2987','2','Qatar Airways'),
+	 ('TK7007','F','298','1','Turkish Airlines'),
+	 ('TK7007','J','225','4','Turkish Airlines'),
+	 ('TK7007','Y','172','2','Turkish Airlines'),
+	 ('PC3160','F','325','1','Pegasus Airlines'),
+	 ('PC3160','J','198','4','Pegasus Airlines'),
+	 ('PC3160','Y','149','2','Pegasus Airlines'),
+	 ('TK7004','F','256','1','Turkish Airlines'),
+	 ('TK7004','J','180','4','Turkish Airlines'),
+	 ('TK7004','Y','140','2','Turkish Airlines'),
+	 ('XQ9292','Y','195','2','SunExpress'),
+	 ('TK2152','F','507','1','Turkish Airlines'),
+	 ('TK2152','J','409','4','Turkish Airlines'),
+	 ('TK2152','Y','352','2','Turkish Airlines'),
+	 ('AF5089','Y','748','2','Air France'),
+	 ('AF8984','F','18047','1','Air France'),
+	 ('AF8984','J','15236','4','Air France'),
+	 ('AF8984','Y','12102','3','Air France'),
+	 ('TK1821','F','1256','1','Turkish Airlines'),
+	 ('TK1821','J','1098','1','Turkish Airlines'),
+	 ('TK1821','Y','898','3','Turkish Airlines'),
+	 ('KL2009','F','2643','1','KLM Royal Dutch Airlines'),
+	 ('KL2009','J','2447','4','KLM Royal Dutch Airlines'),
+	 ('KL2009','Y','2343','3','KLM Royal Dutch Airlines'),
+	 ('KL1166','F','2878','1','KLM Royal Dutch Airlines'),
+	 ('KL1166','J','2569','1','KLM Royal Dutch Airlines'),
+	 ('KL1166','Y','2418','3','KLM Royal Dutch Airlines'),
+	 ('KL2758','F','754','1','KLM Royal Dutch Airlines'),
+	 ('KL2758','J','602','1','KLM Royal Dutch Airlines'),
+	 ('KL2758','Y','564','3','KLM Royal Dutch Airlines'),
+	 ('TK70','F','5265','1','Turkish Airlines'),
+	 ('TK70','J','4256','4','Turkish Airlines'),
+	 ('TK70','Y','3878','3','Turkish Airlines'),
+	 ('KL887','F','10065','1','KLM Royal Dutch Airlines'),
+	 ('KL887','J','9678','1','KLM Royal Dutch Airlines'),
+	 ('KL887','Y','9365','3','KLM Royal Dutch Airlines')
+
+INSERT INTO  AIRPLANE_TYPE
+VALUES
+	 ('B789','269','Boeing'),
+	 ('A388','407','Airbus'),
+	 ('A332','232','Airbus'),
+	 ('A320','420','Airbus'),
+	 ('B738','268','Boeing'),
+	 ('A321','275','Airbus'),
+	 ('B764','340','Boeing'),
+	 ('A333','278','Airbus'),
+	 ('E190','240','Embraer'),
+	 ('B744','275','Boeing'),
+	 ('B77W','337','Boeing')
+
+INSERT INTO CAN_LAND
+VALUES
+	 ('B789','ICN','Boeing'),
+	 ('A388','LAX','Airbus'),
+	 ('A332','DOH','Airbus'),
+	 ('A320','SAW','Airbus'),
+	 ('B738','ESB','Boeing'),
+	 ('B738','ADB','Boeing'),
+	 ('B789','AYT','Boeing'),
+	 ('A321','ESB','Airbus'),
+	 ('A321','CDG','Airbus'),
+	 ('B764','ATL','Boeing'),
+	 ('A333','CDG','Airbus'),
+	 ('A320','CDG','Airbus'),
+	 ('E190','AMS','Embraer'),
+	 ('A321','AMS','Airbus'),
+	 ('B744','HKG','Boeing'),
+	 ('B77W','HKG','Boeing')
+
+INSERT INTO  AIRPLANE
+VALUES
+	 ('HL8083','269','B789','Boeing'),
+ 	 ('HL7615','407','A388','Airbus'),
+	 ('A7-ACK','232','A332','Airbus'),
+	 ('A7-ADD','144','A320','Airbus'),
+	 ('TC-JFC','155','B738','Boeing'),
+	 ('TC-CPO','212','B738','Boeing'),
+	 ('TC-JFN','246','B738','Boeing'),
+	 ('TC-SEO','268','B738','Boeing'),
+	 ('TC-JRF','100','A321','Airbus'),
+	 ('TC-AGG','275','A321','Airbus'),
+	 ('N839MH','337','B764','Boeing'),
+	 ('TC-LOE','269','A333','Airbus'),
+	 ('F-GKXL','407','A320','Airbus'),
+	 ('PH-EZE','232','E190','Embraer'),
+	 ('TC-ETF','144','A321','Airbus'),
+	 ('PH-BFV','155','B744','Boeing'),
+	 ('TC-JJV','212','B77W','Boeing')
+
+INSERT INTO  LEG_INSTANCE
+VALUES
+	 ('KE914','1','2017-12-14','36','HL8083','MAD','21:19','ICN','17:52','Korean Air'),
+ 	 ('KE11','2','2017-12-15','2','HL7615','ICN','20:15','LAX','14:25','Korean Air'),
+  	 ('QR845','1','2017-12-15','73','A7-ACK','KUL','09:10','DOH','12:21','Qatar Airways'),
+	 ('QR241','2','2017-12-15','26','A7-ADD','DOH','14:43','SAW','19:08','Qatar Airways'),
+	 ('TK7007','1','2017-12-16','31','TC-JFC','ADB','15:29','ESB','16:35','Turkish Airlines'),
+	 ('PC3160','1','2017-12-17','98','TC-CPO','ADB','06:00','ESB','07:04','Pegasus Airlines'),
+	 ('TK7004','1','2017-12-14','29','TC-JFN','ESB','08:18','ADB','09:33','Turkish Airlines'),
+	 ('XQ9292','1','2017-12-15','19','TC-SEO','ADB','20:38','AYT','21:42','SunExpress'),
+	 ('TK2152','1','2017-12-15','39','TC-JRF','IST','14:44','ESB','15:54','Turkish Airlines'),
+	 ('AF5089','1','2017-12-15','58','TC-AGG','IST','12:21','CDG','13:58','Air France'),
+	 ('AF8984','2','2017-12-15','76','N839MH','CDG','15:19','ATL','19:35','Air France'),
+	 ('TK1821','1','2017-12-17','7','TC-LOE','IST','08:11','CDG','10:08','Turkish Airlines'),
+	 ('KL2009','1','2017-12-17','86','F-GKXL','AMS','14:14','CDG','15:18','KLM Royal Dutch Airlines'),
+	 ('KL1166','1','2017-12-15','45','PH-EZE','HEL','10:41','AMS','12:20','KLM Royal Dutch Airlines'),
+	 ('KL2758','1','2017-12-15','20','TC-ETF','IST','12:18','AMS','13:36','KLM Royal Dutch Airlines'),
+	 ('KL887','2','2017-12-15','66','PH-BFV','AMS','17:50','HKG','11:51','KLM Royal Dutch Airlines'),
+	 ('TK70','1','2017-12-15','35','TC-JJV','IST','02:11','HKG','17:12','Turkish Airlines'),
+	 ('KL887','1','2017-12-15','66','PH-BFV','AMS','12:50','HKG','11:51','KLM Royal Dutch Airlines'),
+	 ('AF8984','1','2017-12-15','76','N839MH','CDG','15:19','ATL','19:35','Air France')
+INSERT INTO  CUSTOMER
+VALUES
+	('47896547','Kemal Elver','+905647895457','kemalelver@gmail.com'),
+	('98745635','Erdem Kuþ','+905378965457','erdemcik@hotmail.com'),
+	('12345678','Amanda Murphy','+44895574785','amandaeme@gmail.com'),
+	('45612378','Tolga Saltan','+905647895414','dsadasdsa@gmail.com'),
+	('65214787','Hasan Kapýcý','+905647547457','sajjyj@gmail.com'),
+	('98736547','Umut Ýsmet Erdolu','+905647896544','lyoýtugrf@gmail.com'),
+	('65425478','Hakan Gülsoy','+905478966525','wertyu@gmail.com'),
+	('63251454','Mynni Luukkainen','+3586984756','dgfhjkh@gmail.com'),
+	('96587426','Zeynep Kara',NULL,'dsafghj@gmail.com'),
+	('35747985','Merve Paþaoðlu',NULL,'xcvbnmj@gmail.com'),
+	('32145687','Emily Fitzgerald','+156478548744','lomdfhf@gmail.com'),
+	('14569852','Josh Kerr','+44568745774','lajdhgfd@gmail.com'),
+	('32165874','Recep Yýlmaz','+905345788747','vcnbfghg@gmail.com'),
+	('32156984','Özkan Aksu','+905478785985','vcmvbgfh@gmail.com'),
+	('36214236','Aysun Öngören','+905478965457','mcncgvfv@gmail.com'),
+	('95478521','Aysel Çelik','+905688748932','plsdjhsdg@gmail.com'),
+	('96251432','Tomi Kalliola',NULL,'mzxbsdg@gmail.com'),
+	('96547854','Cansu Kale','+905489875647','psaldh@gmail.com'),
+	('47581425','Hasan Gül','+905698744787','mcvbfdgfe@gmail.com'),
+	('35214562','Can Aslan','+905633651423','ansaga@gmail.com'),
+	('56981437','Dilara Tilki','+905896322121','xzncxbc@gmail.com')
+
+INSERT INTO SEAT_RESERVATION
+VALUES
+ 	 ('KE914','1','2017-12-14','12D','Korean Air','98745635'),
+	 ('KE11','2','2017-12-15','23F','Korean Air','98745635'),
+	 ('QR845','1','2017-12-15','26A','Qatar Airways','12345678'),
+	 ('QR241','2','2017-12-15','1C','Qatar Airways','12345678'),
+	 ('TK7007','1','2017-12-16','12D','Turkish Airlines','45612378'),
+	 ('PC3160','1','2017-12-17','13E','Pegasus Airlines','65214787'),
+	 ('TK7004','1','2017-12-14','19A','Turkish Airlines','98736547'),
+	 ('XQ9292','1','2017-12-15','26E','SunExpress','65425478'),
+	 ('TK2152','1','2017-12-15','17B','Turkish Airlines','63251454'),
+	 ('AF5089','1','2017-12-15','23F','Air France','96587426'),
+	 ('AF8984','2','2017-12-15','6A','Air France','96587426'),
+	 ('TK1821','1','2017-12-17','12C','Turkish Airlines','35747985'),
+	 ('KL2009','1','2017-12-17','17B','KLM Royal Dutch Airlines','32145687'),
+	 ('KL1166','1','2017-12-15','18A','KLM Royal Dutch Airlines','14569852'),
+	 ('KL2758','1','2017-12-15','25E','KLM Royal Dutch Airlines','32165874'),
+	 ('KL887','2','2017-12-15','26F','KLM Royal Dutch Airlines','32165874'),
+	 ('TK70','1','2017-12-15','12A','Turkish Airlines','32156984'),
+	 ('KL887','1','2017-12-15','12C','KLM Royal Dutch Airlines','36214236'),
+	 ('AF8984','1','2017-12-15','18F','Air France','95478521'),
+	 ('KE914','1','2017-12-14','10K','Korean Air','96251432'),
+	 ('KE11','2','2017-12-15','16A','Korean Air','96251432'),
+	 ('KL887','1','2017-12-15','11A','KLM Royal Dutch Airlines','96547854'),
+	 ('KL887','1','2017-12-15','13B','KLM Royal Dutch Airlines','47581425'),
+	 ('KL887','1','2017-12-15','24F','KLM Royal Dutch Airlines','35214562'),
+	 ('TK1821','1','2017-12-17','25B','Turkish Airlines','56981437')

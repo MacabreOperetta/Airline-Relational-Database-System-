@@ -1,0 +1,127 @@
+CREATE TABLE AIRPORT(
+		Airport_code char(3) NOT NULL,
+		Name varchar(50) NOT NULL,
+		City varchar(MAX),
+		State varchar(MAX) NOT NULL,
+		PRIMARY KEY(Airport_code),
+		UNIQUE(Name)
+);
+
+CREATE TABLE FLIGHT(
+		Flight_number nvarchar(7) NOT NULL,
+		Airline nvarchar(30) NOT NULL,
+		Weekdays varchar(25) NOT NULL,
+		PRIMARY KEY(Flight_number)
+)
+CREATE TABLE FLIGHT_LEG(
+		Flight_number nvarchar(7) NOT NULL,
+		Leg_number int NOT NULL,
+		Departure_airport_code char(3) NOT NULL,
+		Scheduled_departure_time char(5) NOT NULL,
+		Arrival_airport_code char(3) NOT NULL,
+		Scheduled_arrival_time char(5) NOT NULL,
+		PRIMARY KEY(Flight_number,Leg_number),
+		FOREIGN KEY (Flight_number) REFERENCES FLIGHT(Flight_number)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+		FOREIGN KEY (Departure_airport_code) REFERENCES AIRPORT(Airport_code),
+		FOREIGN KEY (Arrival_airport_code) REFERENCES AIRPORT(Airport_code)
+)
+
+CREATE TABLE CANCELED_FLIGHTS
+(
+		Flight_number nvarchar(7) NOT NULL,
+		Leg_number int NOT NULL,
+		Date date NOT NULL,
+		Departure_airport_code char(3) NOT NULL,
+		Arrival_airport_code char(3) NOT NULL,
+		PRIMARY KEY(Flight_number,Leg_number,Date),
+		FOREIGN KEY (Flight_number,Leg_number) REFERENCES FLIGHT_LEG(Flight_number,Leg_number)
+		ON DELETE CASCADE 
+		ON UPDATE CASCADE 
+)
+
+CREATE TABLE RESTRICTIONS(
+		Restriction_id int NOT NULL,
+		Restriction_type varchar(20) NOT NULL
+		PRIMARY KEY (Restriction_id),
+		UNIQUE (Restriction_type)
+)
+
+CREATE TABLE FARE (
+		Flight_number nvarchar(7) NOT NULL,
+		Fare_code char(1) NOT NULL,
+		Amount smallmoney NOT NULL,
+		Restriction_id int NOT NULL,
+		PRIMARY KEY (Flight_number,Fare_code),
+		FOREIGN KEY (Flight_number) REFERENCES FLIGHT(Flight_number)
+		ON DELETE CASCADE 
+		ON UPDATE CASCADE ,
+		FOREIGN KEY (Restriction_id) REFERENCES RESTRICTIONS(Restriction_id)
+		ON DELETE CASCADE 
+		ON UPDATE CASCADE
+)
+
+CREATE TABLE AIRPLANE_TYPE(
+		Airplane_type_name varchar(15) NOT NULL,
+		Max_seats int NOT NULL,
+		Company varchar(15) NOT NULL,
+		PRIMARY KEY(Airplane_type_name)
+)
+
+CREATE TABLE CAN_LAND (
+		Airplane_type_name varchar(15) NOT NULL,
+		Airport_code char(3) NOT NULL,
+		PRIMARY KEY(Airplane_type_name,Airport_code),
+		FOREIGN KEY (Airplane_type_name) REFERENCES AIRPLANE_TYPE(Airplane_type_name)
+		ON DELETE CASCADE 
+		ON UPDATE CASCADE,
+		FOREIGN KEY (Airport_code) REFERENCES AIRPORT(Airport_code)
+		ON DELETE CASCADE 
+		ON UPDATE CASCADE
+)
+
+CREATE TABLE AIRPLANE(
+		Airplane_id varchar(8) NOT NULL,
+		Total_number_of_seats int NOT NULL,
+		Airplane_type varchar(15) NOT NULL,		
+		PRIMARY KEY(Airplane_id),
+		FOREIGN KEY (Airplane_type) REFERENCES AIRPLANE_TYPE(Airplane_type_name)
+		ON DELETE CASCADE 
+		ON UPDATE CASCADE 
+)
+
+CREATE TABLE LEG_INSTANCE (
+		Flight_number nvarchar(7) NOT NULL,
+		Leg_number int NOT NULL,
+		Date date NOT NULL,
+		Number_of_available_seats int NOT NULL,
+		Airplane_id varchar(8) NOT NULL,
+		Departure_airport_code char(3) NOT NULL,
+		Departure_time char(5) NOT NULL,
+		Arrival_airport_code char(3) NOT NULL,
+		Arrival_time char(5) NOT NULL,
+		PRIMARY KEY(Flight_number,Leg_number,Date),
+		FOREIGN KEY (Flight_number,Leg_number) REFERENCES FLIGHT_LEG(Flight_number,Leg_number)
+		ON DELETE CASCADE 
+		ON UPDATE CASCADE,
+		FOREIGN KEY (Departure_airport_code) REFERENCES AIRPORT(Airport_code),
+		FOREIGN KEY (Arrival_airport_code) REFERENCES AIRPORT(Airport_code),
+		FOREIGN KEY (Airplane_id) REFERENCES AIRPLANE(Airplane_id)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
+)
+
+CREATE TABLE SEAT_RESERVATION (
+		Flight_number nvarchar(7) NOT NULL,
+		Leg_number int NOT NULL,
+		Date date NOT NULL,
+		Seat_number varchar(3) NOT NULL,
+		Customer_name nvarchar(50) NOT NULL,
+		Customer_phone nvarchar(20),
+		PRIMARY KEY(Flight_number,Leg_number,Date,Seat_number),	
+		FOREIGN KEY (Flight_number,Leg_number,Date) REFERENCES LEG_INSTANCE(Flight_number,Leg_number,Date)
+		ON DELETE CASCADE 
+		ON UPDATE CASCADE 
+)
+

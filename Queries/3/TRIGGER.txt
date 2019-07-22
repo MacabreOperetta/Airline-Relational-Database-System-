@@ -1,0 +1,18 @@
+CREATE TRIGGER ADDFFC
+ON SEAT_RESERVATION
+AFTER INSERT,DELETE
+AS
+DECLARE @flightnumber nvarchar(7),@legnumber int ,@date Date,@seatnumber varchar(3),
+		@airline nvarchar(30),@passportnumber varchar(10),@mile int
+IF EXISTS(SELECT * FROM inserted)
+BEGIN
+	SELECT @flightnumber=Flight_number,@legnumber=Leg_number,@date=Date,
+		   @seatnumber=Seat_number,@airline=Airline,@passportnumber=Passport_number from inserted
+	BEGIN
+	SELECT @mile=mile
+	FROM FLIGHT_LEG
+	WHERE @flightnumber=Flight_number
+	END
+	INSERT INTO FFC 
+	VALUES(@flightnumber,@legnumber,@date,@seatnumber,@airline,@mile,@passportnumber)
+END
